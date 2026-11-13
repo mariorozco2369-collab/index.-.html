@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f5f3ef">
 <title>三日冷静</title>
 
-<!-- PWA 配置：让手机浏览器识别为可安装的 App -->
+<!-- PWA 配置 -->
 <link rel="manifest" id="my-manifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -14,16 +14,152 @@
 <meta name="apple-mobile-web-app-title" content="三日冷静">
 
 <style>
+/* =========================================
+   基础变量（默认极简主题）
+   ========================================= */
 :root{
-  --bg:#f5f3ef;--card:#fff;--ink:#1d1d1f;--muted:#8c8c8c;
-  --line:#e8e4dd;--green:#2f6f5e;--red:#b8563c;--soft:#f0ede7;
+  --bg:#f5f3ef; --card:#fff; --ink:#1d1d1f; --muted:#8c8c8c;
+  --line:#e8e4dd; --green:#2f6f5e; --red:#b8563c; --soft:#f0ede7;
+  --radius-card:14px; --radius-btn:10px;
+  --border-width:1px; --shadow: none;
 }
+
+/* =========================================
+   主题 1：深夜暗黑
+   ========================================= */
+body[data-theme="dark"] {
+  --bg:#121212; --card:#1e1e1e; --ink:#f0f0f0; --muted:#888;
+  --line:#333; --green:#4ade80; --red:#f87171; --soft:#2a2a2a;
+  --border-width:1px;
+}
+body[data-theme="dark"] .fab { background:#4ade80; color:#121212; }
+body[data-theme="dark"] nav button.on { background:#4ade80; color:#121212; }
+
+/* =========================================
+   主题 2：纸张手账
+   ========================================= */
+body[data-theme="journal"] {
+  --bg:#f4ebd8; --card:#fcf8ef; --ink:#2c2a28; --muted:#8a847b;
+  --line:#dcd3c1; --green:#5c6b50; --red:#a35d43; --soft:#ebe1d0;
+  --radius-card:4px; --radius-btn:4px;
+  --border-width:2px;
+  background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(0,0,0,.04) 31px, rgba(0,0,0,.04) 32px);
+  background-attachment: fixed;
+}
+body[data-theme="journal"] .card { box-shadow: 2px 2px 0px var(--line); }
+body[data-theme="journal"] nav { background:rgba(244,235,216,.94); }
+
+/* =========================================
+   主题 3：森林呼吸
+   ========================================= */
+body[data-theme="forest"] {
+  --bg:#eaf0eb; --card:#f5f8f6; --ink:#1b3324; --muted:#68846f;
+  --line:#c3d4c8; --green:#1e5e38; --red:#b8563c; --soft:#d9e5dc;
+  --radius-card:20px; --radius-btn:14px;
+}
+body[data-theme="forest"] .card { box-shadow: 0 4px 12px rgba(30,94,56,.06); }
+body[data-theme="forest"] nav button.on { background:#1e5e38; }
+
+/* =========================================
+   主题 4：莫兰迪灰
+   ========================================= */
+body[data-theme="morandi"] {
+  --bg:#e8e6e3; --card:#f2f1ee; --ink:#4a4744; --muted:#8d8985;
+  --line:#d2cec9; --green:#6d7f77; --red:#997a73; --soft:#dbd8d4;
+  --radius-card:10px; --radius-btn:8px;
+}
+body[data-theme="morandi"] .btn.primary { background:#6d7f77; border-color:#6d7f77; }
+body[data-theme="morandi"] nav button.on { background:#6d7f77; }
+
+/* =========================================
+   主题 5：复古报纸
+   ========================================= */
+body[data-theme="news"] {
+  --bg:#eeece5; --card:#f6f5f0; --ink:#111; --muted:#666;
+  --line:#aaa; --green:#222; --red:#333; --soft:#e3e1d9;
+  --radius-card:0px; --radius-btn:0px;
+  --border-width:1px;
+  font-family: "Courier New", Courier, monospace;
+}
+body[data-theme="news"] .card { border:1px solid var(--ink); border-top:3px solid var(--ink); }
+body[data-theme="news"] nav { border-bottom:2px solid var(--ink); background:var(--bg); }
+body[data-theme="news"] .btn { border-color:var(--ink); }
+body[data-theme="news"] .btn.primary { background:var(--ink); color:#fff; }
+
+/* =========================================
+   主题 6：焦糖奶茶
+   ========================================= */
+body[data-theme="caramel"] {
+  --bg:#f7ede2; --card:#fffaf4; --ink:#4a3b32; --muted:#a9927d;
+  --line:#e8d8c3; --green:#9c6644; --red:#a34e3b; --soft:#efe2d3;
+  --radius-card:16px; --radius-btn:12px;
+}
+body[data-theme="caramel"] .card { box-shadow: 0 6px 16px rgba(156,102,68,.08); }
+body[data-theme="caramel"] .fab { background:#9c6644; }
+body[data-theme="caramel"] nav button.on { background:#9c6644; }
+
+/* =========================================
+   主题 7：极地冰川
+   ========================================= */
+body[data-theme="ice"] {
+  --bg:#eff6f9; --card:#ffffff; --ink:#1c3a4a; --muted:#6b8a9b;
+  --line:#cce0eb; --green:#0088cc; --red:#d94848; --soft:#e1edf4;
+  --radius-card:12px; --radius-btn:10px;
+}
+body[data-theme="ice"] .card { box-shadow: 0 4px 14px rgba(0,136,204,.06); }
+body[data-theme="ice"] .fab { background:#0088cc; }
+body[data-theme="ice"] nav button.on { background:#0088cc; }
+
+/* =========================================
+   主题 8：赛博朋克
+   ========================================= */
+body[data-theme="cyber"] {
+  --bg:#0b0c10; --card:#15171e; --ink:#66fcf1; --muted:#45a29e;
+  --line:#2d303e; --green:#00ffcc; --red:#ff003c; --soft:#1f2230;
+  --radius-card:0px; --radius-btn:0px;
+  --border-width:1px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+body[data-theme="cyber"] .card { border:1px solid var(--green); box-shadow: 0 0 10px rgba(0,255,204,.15); }
+body[data-theme="cyber"] .fab { background:var(--green); color:#000; box-shadow: 0 0 15px var(--green); }
+body[data-theme="cyber"] .btn.primary { background:transparent; border:1px solid var(--green); color:var(--green); }
+body[data-theme="cyber"] nav button.on { background:var(--green); color:#000; }
+
+/* =========================================
+   主题 9：樱花微醺
+   ========================================= */
+body[data-theme="sakura"] {
+  --bg:#fbf4f6; --card:#ffffff; --ink:#4a3b3e; --muted:#a88c94;
+  --line:#f0dbe1; --green:#d48394; --red:#c95b73; --soft:#f7e8eb;
+  --radius-card:18px; --radius-btn:14px;
+}
+body[data-theme="sakura"] .card { box-shadow: 0 6px 16px rgba(212,131,148,.08); }
+body[data-theme="sakura"] .fab { background:#d48394; }
+body[data-theme="sakura"] nav button.on { background:#d48394; }
+
+/* =========================================
+   主题 10：黑白极简
+   ========================================= */
+body[data-theme="mono"] {
+  --bg:#f0f0f0; --card:#fff; --ink:#000; --muted:#666;
+  --line:#000; --green:#000; --red:#000; --soft:#e0e0e0;
+  --radius-card:0px; --radius-btn:0px;
+  --border-width:2px;
+}
+body[data-theme="mono"] .card { border:2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+body[data-theme="mono"] .btn { border:2px solid var(--ink); border-radius:0; }
+body[data-theme="mono"] .btn.primary { background:var(--ink); color:#fff; }
+body[data-theme="mono"] .fab { border-radius:0; box-shadow:4px 4px 0 #666; }
+body[data-theme="mono"] nav button.on { border-radius:0; }
+
+/* =========================================
+   全局基础样式（使用 CSS 变量）
+   ========================================= */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0; transition: background .3s, color .3s;}
 body{
   background:var(--bg);color:var(--ink);
   font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  /* 适配 iPhone 底部安全区，防止内容被遮挡 */
   padding-bottom: calc(110px + env(safe-area-inset-bottom));
 }
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
@@ -31,35 +167,25 @@ header{padding: calc(26px + env(safe-area-inset-top)) 0 10px; }
 h1{font-size:20px;margin:0;letter-spacing:.06em}
 .sub{color:var(--muted);font-size:13px;margin-top:6px}
 
-/* 补全并修复顶部导航栏样式 */
 nav{
   display:flex;gap:4px;position:sticky;top:0;z-index:10;
-  background:rgba(245,243,239,.94);backdrop-filter:blur(12px);
+  background:var(--bg); opacity:.95; backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
   padding: 8px 16px;
+  transition: background .3s, border .3s;
 }
 nav button{
-  flex:1;
-  border:0;
-  background:transparent;
-  padding:9px 4px;
-  font-size:13px;
-  color:var(--muted);
-  border-radius:9px;
-  cursor:pointer;
-  font-family:inherit;
-  transition:.15s;
-  -webkit-appearance:none; /* 去除 iOS 默认按钮样式 */
-  appearance:none;
-  outline:none;
+  flex:1;border:0;background:transparent;padding:9px 4px;font-size:13px;
+  color:var(--muted);border-radius:var(--radius-btn);cursor:pointer;font-family:inherit;transition:.15s;
+  -webkit-appearance:none; appearance:none; outline:none;
 }
-nav button.on{background:var(--ink);color:#fff;font-weight:600}
+nav button.on{background:var(--ink);color:var(--card);font-weight:600}
 .badge{display:inline-block;min-width:16px;height:16px;line-height:16px;border-radius:8px;
   background:var(--red);color:#fff;font-size:11px;padding:0 5px;margin-left:3px;font-weight:600}
 
 main{padding-top:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
-.card.urgent{border-color:#e8c9bd;background:#fdf8f5}
+.card{background:var(--card);border:var(--border-width) solid var(--line);border-radius:var(--radius-card);padding:16px;margin-bottom:12px; transition: background .3s, border .3s;}
+.card.urgent{border-color:var(--red); background:var(--bg);}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .name{font-weight:600;font-size:16px;word-break:break-all}
 .price{font-weight:700;font-size:16px;white-space:nowrap;color:var(--ink)}
@@ -67,49 +193,48 @@ main{padding-top:14px}
 .cd{margin-top:10px;font-size:13px;font-weight:600;color:var(--green)}
 .cd.due{color:var(--red)}
 .tagline{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.tg{font-size:11.5px;color:#6b6b6b;background:var(--soft);border-radius:6px;padding:3px 7px}
-.tg.custom{background:#e7f0ec;color:var(--green)}
-.tg.cat{background:#eef0f6;color:#4a5a7a;font-weight:600}
-.reason{margin-top:10px;font-size:13px;color:#555;border-left:2px solid var(--line);padding-left:10px;white-space:pre-wrap;word-break:break-word}
+.tg{font-size:11.5px;color:var(--ink);background:var(--soft);border-radius:6px;padding:3px 7px}
+.tg.custom{background:var(--green);color:#fff;opacity:.8;}
+.tg.cat{background:var(--ink);color:var(--card);font-weight:600}
+.reason{margin-top:10px;font-size:13px;color:var(--ink);border-left:2px solid var(--line);padding-left:10px;white-space:pre-wrap;word-break:break-word; opacity:.8;}
 .notes{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px}
-.note{background:#faf8f5;border-radius:9px;padding:9px 11px;margin-bottom:7px}
+.note{background:var(--bg);border-radius:8px;padding:9px 11px;margin-bottom:7px}
 .note:last-child{margin-bottom:0}
 .note-day{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:3px;letter-spacing:.04em}
-.note-text{font-size:13px;color:#444;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.note-text{font-size:13px;color:var(--ink);line-height:1.6;white-space:pre-wrap;word-break:break-word}
 .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.btn{border:1px solid var(--line);background:#fff;color:#333;border-radius:10px;
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:var(--radius-btn);
   padding:9px 14px;font-size:13.5px;font-family:inherit;cursor:pointer;transition:.15s;
   -webkit-appearance:none; appearance:none; outline:none;}
 .btn:active{transform:scale(.97)}
-.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+.btn.primary{background:var(--ink);color:var(--card);border-color:var(--ink);font-weight:600}
 .btn.green{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
 .btn.ghost{background:transparent;color:var(--muted)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .empty{text-align:center;color:var(--muted);font-size:13.5px;padding:48px 20px;line-height:1.9}
 .fab{position:fixed;left:50%;transform:translateX(-50%);
-  background:var(--ink);color:#fff;border:0;border-radius:999px;padding:14px 30px;
-  font-size:15px;font-weight:600;box-shadow:0 8px 26px rgba(0,0,0,.2);
+  background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:14px 30px;
+  font-size:15px;font-weight:600;box-shadow:0 8px 26px rgba(0,0,0,.15);
   cursor:pointer;font-family:inherit;z-index:20;transition:.15s;
-  /* 悬浮按钮抬高，避开 iPhone 底部横条 */
   bottom: calc(26px + env(safe-area-inset-bottom));
   -webkit-appearance:none; appearance:none; outline:none;
 }
 .fab:active{transform:translateX(-50%) scale(.96)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.38);display:none;z-index:50;
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:50;
   align-items:flex-end;justify-content:center}
 .modal.open{display:flex}
-.sheet{background:#fff;width:100%;max-width:640px;border-radius:20px 20px 0 0;
+.sheet{background:var(--card);width:100%;max-width:640px;border-radius:20px 20px 0 0;
   padding:20px 16px calc(30px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;
-  animation:up .22s cubic-bezier(.2,.8,.3,1)}
+  animation:up .22s cubic-bezier(.2,.8,.3,1); color:var(--ink);}
 @keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
 .sheet h2{font-size:17px;margin:0 0 16px}
 .sheet h3{font-size:16.5px;margin:16px 0 14px;line-height:1.5;font-weight:600}
-label{display:block;font-size:13px;color:#666;margin:16px 0 7px;font-weight:600}
+label{display:block;font-size:13px;color:var(--ink);opacity:.8;margin:16px 0 7px;font-weight:600}
 label span{font-weight:400;color:var(--muted);float:right;font-size:12px}
-input,textarea{width:100%;border:1px solid var(--line);background:#fbfaf8;border-radius:10px;
-  padding:12px;font-size:15px;font-family:inherit;color:inherit;outline:none;transition:.15s;
+input,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:var(--radius-btn);
+  padding:12px;font-size:15px;font-family:inherit;color:var(--ink);outline:none;transition:.15s;
   -webkit-appearance:none; appearance:none;}
-input:focus,textarea:focus{border-color:var(--ink);background:#fff}
+input:focus,textarea:focus{border-color:var(--ink);}
 textarea{resize:vertical;min-height:64px;line-height:1.5}
 .convert{margin-top:8px;font-size:12.5px;color:var(--green);font-weight:600;min-height:18px}
 .dim{margin-top:20px}
@@ -117,31 +242,31 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 .dim-head b{font-weight:700}
 .dim-head span{color:var(--muted);margin-left:8px;font-size:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;
-  font-size:13px;cursor:pointer;font-family:inherit;color:#444;transition:.15s;
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 12px;
+  font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink);transition:.15s;
   -webkit-appearance:none; appearance:none; outline:none;}
-.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
 .custom-row{display:flex;gap:8px;margin-top:9px}
 .custom-row input{flex:1;padding:9px 12px;font-size:14px}
-.custom-row button{border:1px solid var(--ink);background:#fff;border-radius:10px;
+.custom-row button{border:1px solid var(--ink);background:var(--card);color:var(--ink);border-radius:var(--radius-btn);
   padding:0 15px;font-size:13.5px;font-family:inherit;cursor:pointer;font-weight:600;white-space:nowrap;
   -webkit-appearance:none; appearance:none;}
 .opts{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-.opt{border:1px solid var(--line);background:#fff;border-radius:12px;padding:15px 16px;
+.opt{border:1px solid var(--line);background:var(--card);border-radius:var(--radius-btn);padding:15px 16px;
   font-size:15px;font-family:inherit;cursor:pointer;text-align:left;color:var(--ink);transition:.15s;
   -webkit-appearance:none; appearance:none; outline:none;}
 .opt:active{background:var(--soft)}
 .bar{display:flex;gap:5px;margin-bottom:16px}
 .bar i{flex:1;height:3px;border-radius:2px;background:var(--line)}
-.bar i.on{background:var(--ink)}
+.bar i.on{background:var(--green)}
 .qidx{font-size:12px;color:var(--muted);margin-bottom:2px}
 .result{text-align:center;padding:8px 0}
 .result .big{font-size:26px;font-weight:700;margin:14px 0 6px}
-.result .tip{color:#555;font-size:14px;line-height:1.7;margin-bottom:22px}
+.result .tip{color:var(--ink);opacity:.8;font-size:14px;line-height:1.7;margin-bottom:22px}
 .stat-row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
 .stat-row:last-child{border-bottom:0}
 .stat-row b{font-weight:700}
-.stat-big{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 18px;margin-bottom:14px;text-align:center}
+.stat-big{background:var(--card);border:var(--border-width) solid var(--line);border-radius:var(--radius-card);padding:22px 18px;margin-bottom:14px;text-align:center}
 .stat-big .num{font-size:32px;font-weight:700;letter-spacing:-.02em}
 .stat-big .lbl{color:var(--muted);font-size:12.5px;margin-top:6px}
 .rank{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13.5px}
@@ -149,24 +274,32 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 .rank .barbg{flex:0 0 42%;height:7px;background:var(--soft);border-radius:4px;overflow:hidden}
 .rank .barfill{height:100%;background:var(--green);border-radius:4px}
 .mini{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.mini button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 11px;
-  font-size:12.5px;font-family:inherit;cursor:pointer;color:#444;
+.mini button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:var(--radius-btn);padding:7px 11px;
+  font-size:12.5px;font-family:inherit;cursor:pointer;
   -webkit-appearance:none; appearance:none;}
 .toast{position:fixed;left:50%;transform:translateX(-50%);
-  background:rgba(29,29,31,.94);color:#fff;padding:11px 20px;border-radius:999px;
+  background:var(--ink);color:var(--card);padding:11px 20px;border-radius:999px;
   font-size:13.5px;z-index:99;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap;
-  /* 提示条也避开底部 */
   bottom: calc(150px + env(safe-area-inset-bottom));
 }
 .toast.on{opacity:1;transform:translateX(-50%) translateY(-6px)}
 
 .banner{
-  background:#fdf0e9;border:1px solid #f0d5c5;border-radius:12px;
-  padding:12px 14px;margin-bottom:12px;font-size:13.5px;color:#9a4a2e;
+  background:var(--card);border:1px solid var(--red);border-radius:var(--radius-card);
+  padding:12px 14px;margin-bottom:12px;font-size:13.5px;color:var(--red);
   display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:12px;
 }
 .banner b{font-weight:700}
 .banner .go{white-space:nowrap;font-weight:600}
+
+/* 倒计时悬浮条 */
+.countdown-bar{
+  background:var(--soft);color:var(--ink);
+  border-radius:var(--radius-btn);padding:10px 14px;font-size:13px;
+  margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:6px;
+  border:var(--border-width) solid var(--line); opacity:.9;
+}
+.countdown-bar b{font-weight:600}
 
 .heat{display:grid;grid-template-columns:52px repeat(7,1fr);gap:3px;margin-top:12px;align-items:center}
 .heat .hl{font-size:10.5px;color:var(--muted);text-align:right;padding-right:4px;white-space:nowrap}
@@ -183,20 +316,20 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 .spark .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
 .spark .line{fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .spark .dot{fill:var(--green)}
-.spark .area{fill:rgba(47,111,94,.08)}
+.spark .area{fill:var(--green);opacity:.08;}
 
 .setrow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .setrow .btn{flex:1;white-space:nowrap}
 
-.calib{background:#fdf0e9;border:1px solid #f0d5c5;border-radius:10px;
-  padding:10px 12px;font-size:12.5px;color:#9a4a2e;margin-bottom:16px;line-height:1.6}
+.calib{background:var(--soft);border:1px solid var(--line);border-radius:var(--radius-btn);
+  padding:10px 12px;font-size:12.5px;color:var(--ink);margin-bottom:16px;line-height:1.6; opacity:.9;}
 
-.alt-box{margin-top:10px;font-size:12.5px;color:#555;background:#f0f6f3;
-  border-radius:8px;padding:8px 11px;line-height:1.5;word-break:break-word}
+.alt-box{margin-top:10px;font-size:12.5px;color:var(--ink);background:var(--soft);
+  border-radius:var(--radius-btn);padding:8px 11px;line-height:1.5;word-break:break-word}
 .alt-label{font-size:11px;color:var(--green);font-weight:600;margin-right:6px}
 
 .compare{display:flex;gap:8px;align-items:stretch;margin-top:14px;padding:12px;
-  background:#faf8f5;border-radius:10px;text-align:left}
+  background:var(--soft);border-radius:var(--radius-btn);text-align:left}
 .cmp-item{flex:1;min-width:0}
 .cmp-label{font-size:11px;color:var(--muted);margin-bottom:3px}
 .cmp-name{font-size:13.5px;font-weight:600;word-break:break-word;line-height:1.4}
@@ -205,8 +338,8 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 .cmp-item.alt .cmp-name{color:var(--green)}
 
 .search-box{margin-bottom:10px}
-.search-box input{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;
-  padding:10px 12px;font-size:14px;font-family:inherit;outline:none;transition:.15s;
+.search-box input{width:100%;border:1px solid var(--line);background:var(--card);border-radius:var(--radius-btn);
+  padding:10px 12px;font-size:14px;font-family:inherit;outline:none;transition:.15s;color:var(--ink);
   -webkit-appearance:none; appearance:none;}
 .search-box input:focus{border-color:var(--ink)}
 .filter-chips{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
@@ -225,17 +358,26 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 .report-line b{font-weight:700}
 .report-note{font-size:12.5px;color:var(--muted);line-height:1.7;margin-top:16px;text-align:center}
 
-.use-box{background:#f0f6f3;border-radius:10px;padding:10px 12px;margin-top:10px;
-  font-size:12.5px;color:#3c6b5b;line-height:1.6}
+.use-box{background:var(--soft);border-radius:var(--radius-btn);padding:10px 12px;margin-top:10px;
+  font-size:12.5px;color:var(--ink);line-height:1.6}
 
-.luxury-box{background:#fbf6ef;border:1px solid #ecdfc9;border-radius:12px;
+.luxury-box{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-btn);
   padding:14px;margin-top:20px}
-.luxury-title{font-size:13.5px;font-weight:700;color:#8a6a33;margin-bottom:2px}
-.luxury-sub{font-size:12px;color:#a08a5f;line-height:1.5}
-.peruse-line{margin-top:12px;font-size:13px;color:#6b5a3a;font-weight:600;background:#fff;
-  border-radius:8px;padding:9px 11px;border:1px solid #ecdfc9}
+.luxury-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.luxury-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.peruse-line{margin-top:12px;font-size:13px;color:var(--ink);font-weight:600;background:var(--card);
+  border-radius:var(--radius-btn);padding:9px 11px;border:1px solid var(--line)}
 .peruse-line b{color:var(--red);font-size:15px}
 .cat-hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+/* 主题选择器 */
+.theme-scroll { display:flex; gap:10px; overflow-x:auto; padding:10px 0; scrollbar-width:none; }
+.theme-scroll::-webkit-scrollbar { display:none; }
+.theme-item { flex:0 0 auto; text-align:center; cursor:pointer; }
+.theme-circle { width:44px; height:44px; border-radius:50%; border:2px solid var(--line); margin-bottom:6px; display:flex; align-items:center; justify-content:center; transition:.2s;}
+.theme-item.active .theme-circle { border-color:var(--ink); transform:scale(1.1); }
+.theme-name { font-size:11px; color:var(--muted); }
+.theme-item.active .theme-name { color:var(--ink); font-weight:600; }
 </style>
 </head>
 <body>
@@ -372,7 +514,6 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 
 <script>
 /* ============ PWA 动态注入 ============ */
-// 自动生成一个黑底白字的 SVG 图标，转成 base64 给 PWA 使用
 const svg192 = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="45" fill="#1d1d1f"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="100" fill="#fff" font-family="sans-serif">三</text></svg>`;
 const svg512 = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="120" fill="#1d1d1f"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="260" fill="#fff" font-family="sans-serif">三</text></svg>`;
 
@@ -448,10 +589,24 @@ const FREQ_OPTIONS = [
   {key:'never', label:'几乎不用', perYear:1}
 ];
 
+const THEMES = [
+  {k:'default', n:'极简', c:'#f5f3ef', t:'#1d1d1f'},
+  {k:'dark', n:'暗黑', c:'#121212', t:'#4ade80'},
+  {k:'journal', n:'手账', c:'#f4ebd8', t:'#5c6b50'},
+  {k:'forest', n:'森林', c:'#eaf0eb', t:'#1e5e38'},
+  {k:'morandi', n:'莫兰迪', c:'#e8e6e3', t:'#6d7f77'},
+  {k:'news', n:'报纸', c:'#eeece5', t:'#222'},
+  {k:'caramel', n:'焦糖', c:'#f7ede2', t:'#9c6644'},
+  {k:'ice', n:'冰川', c:'#eff6f9', t:'#0088cc'},
+  {k:'cyber', n:'赛博', c:'#0b0c10', t:'#00ffcc'},
+  {k:'sakura', n:'樱花', c:'#fbf4f6', t:'#d48394'},
+  {k:'mono', n:'黑白', c:'#f0f0f0', t:'#000'}
+];
+
 /* ============ 状态 ============ */
 let state = {
   items: [],
-  settings: { wage: 50, notify: false, tiered: false, luxuryThreshold: 300 },
+  settings: { wage: 50, notify: false, tiered: false, luxuryThreshold: 300, theme: 'default' },
   fund: { balance: 0, goalName: '', goalAmount: 0 }
 };
 let customTags = [];
@@ -472,12 +627,13 @@ function load(){
       const d = JSON.parse(raw);
       state = {
         items: d.items || [],
-        settings: Object.assign({wage:50, notify:false, tiered:false, luxuryThreshold:300}, d.settings||{}),
+        settings: Object.assign({wage:50, notify:false, tiered:false, luxuryThreshold:300, theme:'default'}, d.settings||{}),
         fund: Object.assign({balance:0, goalName:'', goalAmount:0}, d.fund||{})
       };
     }
   }catch(e){}
   migrate();
+  applyTheme(state.settings.theme || 'default');
 }
 function migrate(){
   state.items.forEach(i => {
@@ -502,6 +658,15 @@ function migrate(){
   });
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){ } }
+
+function applyTheme(themeKey) {
+  document.body.dataset.theme = themeKey;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    const t = THEMES.find(x => x.k === themeKey);
+    if(t) meta.setAttribute('content', t.c);
+  }
+}
 
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
@@ -602,6 +767,15 @@ function renderAll(){
   else b.style.display = 'none';
 
   const main = $('#main');
+  
+  let countdownBar = '';
+  if(currentTab === 'cooling' && cooling.length > 0){
+    const next = cooling[0];
+    countdownBar = `<div class="countdown-bar">
+      最快的一项：<b>${esc(next.name)}</b> ${fmtLeft(next.deadline - now)} 到期
+    </div>`;
+  }
+
   let banner = '';
   if(currentTab !== 'due' && due.length){
     banner = `<div class="banner" data-goto="due">
@@ -611,7 +785,7 @@ function renderAll(){
   }
 
   if(currentTab === 'cooling'){
-    main.innerHTML = banner + (cooling.length
+    main.innerHTML = banner + countdownBar + (cooling.length
       ? cooling.map(i => cardHTML(i, now, 'cooling')).join('')
       : `<div class="empty">还没有正在冷静的东西<br><span style="font-size:12px">下次想买什么，先记在这里</span></div>`);
   }
@@ -720,8 +894,8 @@ function cardHTML(i, now, mode){
   if(i.luxury && i.luxury.perUse){
     const lx = i.luxury;
     const freqLabel = (FREQ_OPTIONS.find(f=>f.key===lx.freq)||{}).label || '';
-    head += `<div class="alt-box" style="background:#fbf6ef;color:#6b5a3a">
-      <span class="alt-label" style="color:#8a6a33">值不值</span>
+    head += `<div class="alt-box">
+      <span class="alt-label">值不值</span>
       按${freqLabel||'你的预估'}用，每次约 ${money(lx.perUse)}${lx.valueScore ? ' · 自评性价比：'+esc(lx.valueScore) : ''}
     </div>`;
   }
@@ -890,10 +1064,26 @@ function catRankHTML(){
       ${list.map(([k,v])=>`
         <div class="rank">
           <div class="nm">${esc(catLabel(k))}</div>
-          <div class="barbg"><div class="barfill" style="width:${Math.round(v/max*100)}%;background:#4a5a7a"></div></div>
+          <div class="barbg"><div class="barfill" style="width:${Math.round(v/max*100)}%;background:var(--ink)"></div></div>
           <div style="width:22px;text-align:right;color:var(--muted)">${v}</div>
         </div>`).join('')}
     </div>`;
+}
+
+function themeSelectorHTML(){
+  return `
+    <div class="card">
+      <div style="font-weight:600;font-size:14.5px">换个心情</div>
+      <div class="theme-scroll">
+        ${THEMES.map(t => `
+          <div class="theme-item ${state.settings.theme === t.k ? 'active' : ''}" data-theme-option="${t.k}">
+            <div class="theme-circle" style="background:${t.c}; border-color:${t.t}"></div>
+            <div class="theme-name">${t.n}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
 }
 
 function statsHTML(){
@@ -920,6 +1110,8 @@ function statsHTML(){
 
   const reviewed = bought.filter(i=>i.review);
   const regretCount = reviewed.filter(i=>i.review==='吃灰'||i.review==='后悔了').length;
+  const regretItems = reviewed.filter(i=>i.review==='吃灰'||i.review==='后悔了');
+  const regretPrice = regretItems.reduce((s,i)=>s+i.price,0);
 
   const fund = state.fund || {balance:0, goalName:'', goalAmount:0};
   const fundPct = fund.goalAmount > 0 ? Math.min(100, Math.round(fund.balance / fund.goalAmount * 100)) : 0;
@@ -943,6 +1135,16 @@ function statsHTML(){
       <div class="num">${money(saved)}</div>
       <div class="lbl">累计拦下的金额${state.settings.wage>0 ? ' · ≈ '+(saved/state.settings.wage).toFixed(1)+' 小时工资' : ''}</div>
     </div>
+
+    ${regretItems.length ? `
+    <div class="card" style="border-color:var(--red); background:var(--bg);">
+      <div style="font-weight:600;font-size:14.5px;color:var(--red)">😭 后悔药账本</div>
+      <div style="font-size:13px;color:var(--ink);margin-top:8px;line-height:1.6; opacity:.8;">
+        你买回来吃灰或后悔的东西，一共有 <b>${regretItems.length}</b> 件，浪费了 <b>${money(regretPrice)}</b>。
+      </div>
+    </div>` : ''}
+
+    ${themeSelectorHTML()}
 
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1234,7 +1436,7 @@ function updateConvert(){
 $('#f-price').addEventListener('input', () => { updateConvert(); updateLuxury(); });
 $('#f-brand').addEventListener('input', renderCalib);
 
-$('#fab').addEventListener('click', () => {
+$('#fab').addEventListener('click', async () => {
   ['#f-name','#f-brand','#f-price','#f-why','#f-use','#f-alt','#f-downgrade','#f-custom-input'].forEach(s => $(s).value = '');
   $('#f-convert').textContent = '';
   customTags = [];
@@ -1251,6 +1453,23 @@ $('#fab').addEventListener('click', () => {
   $$('#f-value .chip').forEach(c => c.classList.remove('on'));
   updateLuxury();
   renderCalib();
+  
+  try {
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      const text = await navigator.clipboard.readText();
+      if (text && text.trim()) {
+        const t = text.trim();
+        if (t.length <= 20 && !t.startsWith('http')) {
+          $('#f-name').value = t;
+          toast('已从剪贴板读取名称');
+        } else if (t.includes('taobao.com') || t.includes('jd.com') || t.includes('tb.cn')) {
+          toast('检测到购物链接，请补充商品名称');
+          setTimeout(() => $('#f-name').focus(), 300);
+        }
+      }
+    }
+  } catch (err) {}
+
   $('#addModal').classList.add('open');
 });
 $('#f-cancel').addEventListener('click', () => $('#addModal').classList.remove('open'));
@@ -1345,6 +1564,17 @@ $('#noteSave').addEventListener('click', () => {
 });
 
 document.addEventListener('click', e => {
+  // 换肤事件
+  const themeOpt = e.target.closest('[data-theme-option]');
+  if (themeOpt) {
+    const t = themeOpt.dataset.themeOption;
+    state.settings.theme = t;
+    applyTheme(t);
+    save();
+    renderAll();
+    return;
+  }
+
   const goto = e.target.closest('[data-goto]');
   if(goto){ switchTab(goto.dataset.goto); return; }
 
@@ -1506,10 +1736,11 @@ $('#file-import').addEventListener('change', e => {
       if(!confirm('将用备份文件覆盖当前全部数据，确定？')){ e.target.value=''; return; }
       state = {
         items: d.items,
-        settings: Object.assign({wage:50, notify:false, tiered:false, luxuryThreshold:300}, d.settings||{}),
+        settings: Object.assign({wage:50, notify:false, tiered:false, luxuryThreshold:300, theme:'default'}, d.settings||{}),
         fund: Object.assign({balance:0, goalName:'', goalAmount:0}, d.fund||{})
       };
       migrate();
+      applyTheme(state.settings.theme || 'default');
       save();
       renderAll();
       toast('导入成功，共 ' + state.items.length + ' 条记录');
@@ -1607,7 +1838,7 @@ function renderDecide(){
   if(dec.dropping){
     sheet.innerHTML = `
       <h2>这笔钱打算用来干嘛？</h2>
-      <p style="color:#666;font-size:13.5px;margin:0 0 8px">
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 8px">
         放弃 ${esc(item.name)}，省下 ${money(item.price)}。给这笔钱一个去处，会比"省着"更有动力。
       </p>
       <label>这笔钱我打算用来<span>选填</span></label>
@@ -1818,7 +2049,6 @@ renderAll();
 checkDueNotify();
 setInterval(() => { renderAll(); checkDueNotify(); }, 30000);
 
-// 如果有 sw.js 文件，顺便注册以支持离线访问
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
